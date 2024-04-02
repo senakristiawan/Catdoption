@@ -7,20 +7,26 @@
 
 import SwiftUI
 
+
 struct PetAdoptionView: View {
     
     @State private var isFilterViewPresented = false
     
+    let leppyData = PetModel.generateLeppyData()
+    let butetData = PetModel.generateButetData()
+    let skyData = PetModel.generateSkyData()
+    let kentangData = PetModel.generateKentangData()
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 16) {
-                PetCard(name: "Leppy", type: "Domestic", distance: 1.0, weight: 3.0, gender: "Male")
+                PetCard(petModel: leppyData)
                     .shadow(radius: 10)
-                PetCard(name: "Butet", type: "Persian", distance: 3.5, weight: 5.0, gender: "Female")
+                PetCard(petModel: butetData)
                     .shadow(radius: 10)
-                PetCard(name: "Sky", type: "Domestic", distance: 8.5, weight: 4.9, gender: "Female")
+                PetCard(petModel: skyData)
                     .shadow(radius: 10)
-                PetCard(name: "Kentang", type: "British Shorthair", distance: 8.5, weight: 4.2, gender: "Female")
+                PetCard(petModel: kentangData)
                     .shadow(radius: 10)
                 Spacer()
             }
@@ -42,17 +48,13 @@ struct PetAdoptionView: View {
 }
 
 struct PetCard: View {
-    let name: String
-    let type: String
-    let distance: Double
-    let weight: Double
-    let gender: String
+    var petModel: PetModel = PetModel(name: "Leppy", type: "Domestic", distance: 1.0, weight: 1.0, gender: "Male")
     
     var body: some View {
         HStack {
             ImageView(imageName: "placeholder")
                 .background(Color(.white))
-            PetInfo(type: type, name: name, distance: distance, weight: weight, gender: gender)
+            PetInfo(name: petModel.name, type: petModel.type, distance: petModel.distance, weight: petModel.weight, gender: petModel.gender)
                 .padding(.horizontal, 10.0)
         }
         .frame(height: 120)
@@ -62,8 +64,8 @@ struct PetCard: View {
 }
 
 struct PetInfo: View {
-    let type: String
     let name: String
+    let type: String
     let distance: Double
     let weight: Double
     let gender: String
